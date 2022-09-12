@@ -24,7 +24,7 @@ module "EC2-Role" {
 #########
 #  EC2  #
 #########
-module "Linux-Server" {
+module "Ubuntu-Server" {
   source           = "../modules/lin-server"
   instance_count   = var.instance_count
   linAMI           = module.Data.lin-ami

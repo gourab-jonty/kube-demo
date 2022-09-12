@@ -13,6 +13,3 @@ output "IAM-ROLE_Module" {
 output "Private-Subnet" {
   value = module.Network
 }
-output "RDS" {
-  value = module.RDS
-}
