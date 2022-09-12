@@ -1,0 +1,10 @@
+variable "instance_count" {}
+variable "linAMI" {}
+variable "instance_type" {}
+variable "instance-profile" {}
+variable "subnet_ids" {}
+variable "vpc_id" {}
+variable "inst-sg" {}
+variable "vol_size" {}
+variable "ebs_optimized" {}
+variable "depends" {}

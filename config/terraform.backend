@@ -1,0 +1,3 @@
+bucket = "gn-demo-terraform-backend"
+key    = "config/terraform.tfstate"
+region = "ap-south-1"
