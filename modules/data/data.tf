@@ -37,11 +37,11 @@ data "aws_subnet" "subnet" {
 #######
 data "aws_ami" "lin-ami" {
   most_recent = true
-  owners      = ["137112412989"]
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-kernel-5.10-hvm-2.0*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04*"]
   }
   filter {
     name   = "root-device-type"

@@ -1,15 +1,10 @@
-instance_count  = 2
-instance_type   = "t2.micro"
+instance_count  = 1
+instance_type   = "t3.micro"
 ebs_optimized   = false
 ec2_size        = 8
 name            = "demo"
-parameter_name  = "demo_db_pwd"
 port            = 80
 protocol        = "HTTP"
-instance_class  = "db.t2.micro"
-db_storage      = 50
-engine          = "MySQL"
-engine_version  = "8.0.30"
 region          = "ap-south-1"
 vpc_name        = "Mumbai-VPC"
 stickiness      = true

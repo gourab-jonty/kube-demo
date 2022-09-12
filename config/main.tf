@@ -38,22 +38,6 @@ module "Linux-Server" {
   depends          = module.Network
 }
 
-#########
-#  RDS  #
-#########
-module "RDS" {
-  source         = "../modules/rds"
-  instance_class = var.instance_class
-  subnet_ids     = ["${module.Data.subnet-a}", "${module.Data.subnet-c}"]
-  vpc_id         = module.Data.vpc_id
-  name           = var.name
-  parameter_name = var.parameter_name
-  rds_sg         = ["${module.Resource-SG.instance-sg}"]
-  storage        = var.db_storage
-  engine         = var.engine
-  engine_version = var.engine_version
-}
-
 ###################
 #  TARGET GROUPS  #
 ###################
@@ -86,14 +70,4 @@ module "Load-Balancer_Default_Listener" {
   tg_arn   = module.Target-Group.arn
   port     = var.port
   protocol = var.protocol
-}
-
-################
-#  CLOUDFRONT  #
-################
-module "Cloudfront" {
-  source      = "../modules/cloudfront"
-  domain_name = module.Load-Balancer.dns_name
-  origin_id   = module.Load-Balancer.dns_name
-  comment     = "Demo-CDN"
 }
