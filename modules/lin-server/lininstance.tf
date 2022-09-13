@@ -22,7 +22,7 @@ resource "aws_instance" "lin-EC2" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo resize2fs /dev/sda1",
+      "sudo resize2fs /dev/xda1",
       "sudo apt-get update",
       "sudo apt-get install ca-certificates curl gnupg lsb-release -y",
       "sudo apt install docker.io -y",
