@@ -52,4 +52,8 @@ data "aws_ami" "lin-ami" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+  filter {
+    name = "architecture"
+    values = ["x86_64"]
+  }
 }
