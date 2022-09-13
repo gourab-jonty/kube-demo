@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+
+  wordpress:
+    image: wordpress:4.3
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: demouser
+      WORDPRESS_DB_PASSWORD: demopass
+      WORDPRESS_DB_NAME: demodb
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: demodb
+      MYSQL_USER: demouser
+      MYSQL_PASSWORD: demopass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:

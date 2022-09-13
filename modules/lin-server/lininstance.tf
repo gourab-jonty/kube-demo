@@ -15,6 +15,11 @@ resource "aws_instance" "lin-EC2" {
     volume_size           = var.vol_size
     delete_on_termination = true
   }
+  provisioner "file" {
+    source      = "${path.module}/script/docker-compose.yml"
+    destination = "/home/docker-compose.yml"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
@@ -23,7 +28,10 @@ resource "aws_instance" "lin-EC2" {
       "sudo systemctl start docker",
       "sudo systemctl enable docker",
       "sudo apt install docker-compose -y",
-      #"sudo docker run -p 80:80 nginx"
+      "sudo mkdir ~/wordpress/",
+      "cd ~/wordpress/",
+      "sudo cp /home/docker-compose.yml .",
+      "sudo docker-compose up -d"
     ]
   }
 
