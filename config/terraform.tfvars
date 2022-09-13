@@ -1,7 +1,7 @@
 instance_count  = 1
 instance_type   = "t3.micro"
 ebs_optimized   = false
-ec2_size        = 8
+ec2_size        = 20
 name            = "demo"
 port            = 80
 protocol        = "HTTP"
