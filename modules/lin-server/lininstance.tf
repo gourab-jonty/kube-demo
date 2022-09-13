@@ -17,16 +17,15 @@ resource "aws_instance" "lin-EC2" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo apt-get update-y",
-      "sudo apt-get install ca-certificates curl gnupg lsb-release",
-      "sudo mkdir -p /etc/apt/keyrings",
-      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg",
-      "sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin",
-      "sudo service docker start",
-      "sudo docker run -p 80:80 hello-world"
+      "sudo apt-get update",
+      "sudo apt-get install ca-certificates curl gnupg lsb-release -y",
+      "sudo apt install docker.io -y",
+      "sudo systemctl start docker",
+      "sudo systemctl enable docker",
+      "sudo apt install docker-compose -y",
+      "sudo docker run -p 80:80 nginx"
     ]
   }
-
 
   connection {
     type        = "ssh"

@@ -41,7 +41,7 @@ data "aws_ami" "lin-ami" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64*"]
   }
   filter {
     name   = "root-device-type"
