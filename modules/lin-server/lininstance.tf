@@ -17,7 +17,7 @@ resource "aws_instance" "lin-EC2" {
   }
   provisioner "file" {
     source      = "${path.module}/script/docker-compose.yml"
-    destination = "/home/docker-compose.yml"
+    destination = "/home/ubuntu/docker-compose.yml"
   }
 
   provisioner "remote-exec" {
@@ -30,7 +30,7 @@ resource "aws_instance" "lin-EC2" {
       "sudo apt install docker-compose -y",
       "sudo mkdir ~/wordpress/",
       "cd ~/wordpress/",
-      "sudo cp /home/docker-compose.yml .",
+      "sudo cp /home/ubuntu/docker-compose.yml .",
       "sudo docker-compose up -d"
     ]
   }
