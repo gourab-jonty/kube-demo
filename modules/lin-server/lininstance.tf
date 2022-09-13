@@ -23,7 +23,7 @@ resource "aws_instance" "lin-EC2" {
       "sudo systemctl start docker",
       "sudo systemctl enable docker",
       "sudo apt install docker-compose -y",
-      "sudo docker run -p 80:80 nginx"
+      #"sudo docker run -p 80:80 nginx"
     ]
   }
 
