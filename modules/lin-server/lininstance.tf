@@ -30,7 +30,7 @@ resource "aws_instance" "lin-EC2" {
 
   connection {
     type        = "ssh"
-    user        = "ec2-user"
+    user        = "ubuntu"
     host        = self.private_ip
     private_key = file("${path.module}/key/ec2.pem")
   }
