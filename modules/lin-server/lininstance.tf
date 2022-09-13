@@ -6,7 +6,7 @@ resource "aws_instance" "lin-EC2" {
   subnet_id            = element(var.subnet_ids, count.index)
   key_name             = "ec2"
   tags = {
-    Name = "Demo-Instance-${count.index + 1}"
+    Name = "Docker-Minikube-${count.index + 1}"
   }
   vpc_security_group_ids = var.inst-sg
   ebs_optimized          = var.ebs_optimized
