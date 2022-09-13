@@ -48,7 +48,7 @@ module "Target-Group" {
   stickiness     = var.stickiness
   instance_count = var.instance_count
   vpc_id         = module.Data.vpc_id
-  instance-id    = module.Linux-Server.lin-id
+  instance-id    = module.Ubuntu-Server.lin-id
 }
 
 ###################
