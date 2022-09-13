@@ -30,7 +30,7 @@ module "Ubuntu-Server" {
   linAMI           = module.Data.lin-ami
   instance_type    = var.instance_type
   instance-profile = module.EC2-Role.instane-profile
-  subnet_ids       = ["${module.Network.private-b}"]
+  subnet_ids       = module.Network.private-b
   inst-sg          = ["${module.Resource-SG.instance-sg}"]
   vpc_id           = module.Data.vpc_id
   vol_size         = var.ec2_size

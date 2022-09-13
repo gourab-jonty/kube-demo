@@ -1,12 +1,12 @@
 resource "aws_instance" "lin-EC2" {
-  count                = var.instance_count
   ami                  = var.linAMI
   instance_type        = var.instance_type
   iam_instance_profile = var.instance-profile
-  subnet_id            = element(var.subnet_ids, count.index)
+  subnet_id            = var.subnet_ids
   key_name             = "ec2"
+  
   tags = {
-    Name = "Docker-Minikube-${count.index + 1}"
+    Name = "Docker-Minikube"
   }
   vpc_security_group_ids = var.inst-sg
   ebs_optimized          = var.ebs_optimized
@@ -32,7 +32,7 @@ resource "aws_instance" "lin-EC2" {
       "sudo mkdir ~/wordpress/",
       "cd ~/wordpress/",
       "sudo cp /home/ubuntu/docker-compose.yml .",
-      "sudo docker-compose up -d"
+      "sudo docker-compose up -d",
     ]
   }
 
@@ -42,6 +42,6 @@ resource "aws_instance" "lin-EC2" {
     host        = self.private_ip
     private_key = file("${path.module}/key/ec2.pem")
   }
-
+  
   depends_on = [var.depends]
 }
