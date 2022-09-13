@@ -19,6 +19,17 @@ resource "aws_instance" "lin-EC2" {
     source      = "${path.module}/script/docker-compose.yml"
     destination = "/home/ubuntu/docker-compose.yml"
   }
+  
+  provisioner "local-exec" {
+    command = <<-EOT
+      ssh ${local.ssh_args} root@${self.ipv4_address} '(sleep 2; reboot)&'; sleep 3
+      until ssh ${local.ssh_args} -o ConnectTimeout=2 root@${self.ipv4_address} true 2> /dev/null
+      do
+        echo "Waiting for node to reboot and become available..."
+        sleep 3
+      done
+    EOT
+  }
 
   provisioner "remote-exec" {
     inline = [
