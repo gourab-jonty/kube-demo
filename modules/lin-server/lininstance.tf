@@ -21,28 +21,6 @@ resource "aws_instance" "lin-EC2" {
   }
 
   provisioner "remote-exec" {
-    inline =[
-      "sudo resize2fs /dev/nvme0n1p1",
-      "sudo shutdown -r now"
-    ]
-  }
-
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    host        = self.private_ip
-    private_key = file("${path.module}/key/ec2.pem")
-  }
-  
-  depends_on = [var.depends]
-}
-
-resource "null_resource" "remote" {
-
-  depends_on = [
-    aws_instance.lin-EC2
-  ]
-  provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install ca-certificates curl gnupg lsb-release -y",
@@ -54,19 +32,20 @@ resource "null_resource" "remote" {
       "sudo mkdir ~/wordpress/",
       "cd ~/wordpress/",
       "sudo cp /home/ubuntu/docker-compose.yml .",
-      #"sudo docker-compose up -d",
-      "sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
-      "sudo install minikube-linux-amd64 /usr/local/bin/minikube",
-      "sudo apt-get install conntrack",
-      "minikube start --driver=none"
+      "sudo docker-compose up -d"
+      #"sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
+      #"sudo install minikube-linux-amd64 /usr/local/bin/minikube",
+      #"sudo apt-get install conntrack",
+      #"minikube start --driver=none"
     ]
   }
 
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    host        = aws_instance.lin-EC2.private_ip
+    host        = self.private_ip
     private_key = file("${path.module}/key/ec2.pem")
   }
-
+  
+  depends_on = [var.depends]
 }
