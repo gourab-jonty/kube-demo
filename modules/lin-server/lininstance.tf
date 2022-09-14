@@ -33,10 +33,27 @@ resource "aws_instance" "lin-EC2" {
       "cd ~/wordpress/",
       "sudo cp /home/ubuntu/docker-compose.yml .",
       #"sudo docker-compose up -d",
-      "sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
-      "sudo install minikube-linux-amd64 /usr/local/bin/minikube",
-      "sudo apt-get install conntrack",
-      "minikube start --driver=none"
+      "sudo curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
+      "sudo chmod +x minikube",
+      "sudo mv minikube /usr/local/bin/",
+      "sudo apt install conntrack",
+      "sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl",
+      "sudo chmod +x ./kubectl",
+      "sudo mv ./kubectl /usr/local/bin/kubectl",
+      "sudo wget https://github.com/Mirantis/cri-dockerd/releases/download/v0.2.0/cri-dockerd-v0.2.0-linux-amd64.tar.gz",
+      "sudo tar xvf cri-dockerd-v0.2.0-linux-amd64.tar.gz",
+      "sudo mv ./cri-dockerd /usr/local/bin/",
+      "sudo wget https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.service",
+      "sudo wget https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.socket",
+      "sudo mv cri-docker.socket cri-docker.service /etc/systemd/system/",
+      "sudo sed -i -e 's,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,' /etc/systemd/system/cri-docker.service",
+      "sudo systemctl daemon-reload",
+      "sudo systemctl enable cri-docker.service",
+      "sudo systemctl enable --now cri-docker.socket",
+      "sudo wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-v1.25.0-linux-amd64.tar.gz",
+      "sudo tar zxvf crictl-v1.25.0-linux-amd64.tar.gz -C /usr/local/bin",
+      "sudo rm -f crictl-v1.25.0-linux-amd64.tar.gz",
+      "minikube start --vm-driver=none"
     ]
   }
 

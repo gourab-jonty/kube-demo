@@ -4,7 +4,7 @@
 module "Resource-SG" {
   source        = "../modules/resource-sg"
   vpc_id        = module.Data.vpc_id
-  ingress_rules = [{ port = 22 }, { port = 443 }, { port = 80 }]
+  ingress_rules = [{ port = 22 }, { port = 443 }, { port = 80 }, {port = 8080}]
   vpc_cidr      = ["${module.Data.vpc_cidr}"]
   name          = var.name
 }
