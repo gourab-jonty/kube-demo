@@ -16,9 +16,21 @@ resource "aws_instance" "lin-EC2" {
     delete_on_termination = true
   }
   provisioner "file" {
-    source      = "${path.module}/script/docker-compose.yml"
-    destination = "/home/ubuntu/docker-compose.yml"
+    source      = "${path.module}/script/dockerfile"
+    destination = "/home/ubuntu/dockerfile"
   }
+
+  provisioner "file" {
+    source      = "${path.module}/script/index.html"
+    destination = "/home/ubuntu/index.html"
+  }
+
+  provisioner "file" {
+    source      = "${path.module}/script/deployment.yaml"
+    destination = "/home/ubuntu/deployment.yaml"
+  }
+
+
 
   provisioner "remote-exec" {
     inline = [
@@ -31,8 +43,10 @@ resource "aws_instance" "lin-EC2" {
       "sudo apt install docker-compose -y",
       "sudo mkdir ~/wordpress/",
       "cd ~/wordpress/",
-      "sudo cp /home/ubuntu/docker-compose.yml .",
-      #"sudo docker-compose up -d",
+      "sudo cp /home/ubuntu/dockerfile .",
+      "sudo cp /home/ubuntu/deployment.yaml .",
+      "sudo cp /home/ubuntu/index.html .",
+      "cd ..",
       "sudo curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
       "sudo chmod +x minikube",
       "sudo mv minikube /usr/local/bin/",
@@ -53,7 +67,10 @@ resource "aws_instance" "lin-EC2" {
       "sudo wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.25.0/crictl-v1.25.0-linux-amd64.tar.gz",
       "sudo tar zxvf crictl-v1.25.0-linux-amd64.tar.gz -C /usr/local/bin",
       "sudo rm -f crictl-v1.25.0-linux-amd64.tar.gz",
-      "sudo minikube start --vm-driver=none"
+      "sudo minikube start --vm-driver=none",
+      "cd ~/wordpress/",
+      "sudo docker build -t mynginx .",
+      "sudo kubectl apply -f deployment.yaml"
     ]
   }
 
