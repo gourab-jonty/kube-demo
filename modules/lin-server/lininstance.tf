@@ -50,10 +50,10 @@ resource "aws_instance" "lin-EC2" {
       "sudo systemctl daemon-reload",
       "sudo systemctl enable cri-docker.service",
       "sudo systemctl enable --now cri-docker.socket",
-      "sudo wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-v1.25.0-linux-amd64.tar.gz",
+      "sudo wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.25.0/crictl-v1.25.0-linux-amd64.tar.gz",
       "sudo tar zxvf crictl-v1.25.0-linux-amd64.tar.gz -C /usr/local/bin",
       "sudo rm -f crictl-v1.25.0-linux-amd64.tar.gz",
-      "minikube start --vm-driver=none"
+      "sudo minikube start --vm-driver=none"
     ]
   }
 
