@@ -1,5 +1,5 @@
 instance_count  = 1
-instance_type   = "t3.micro"
+instance_type   = "t2.medium"
 ebs_optimized   = false
 ec2_size        = 20
 name            = "demo"

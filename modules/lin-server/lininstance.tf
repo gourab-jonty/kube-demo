@@ -31,12 +31,12 @@ resource "aws_instance" "lin-EC2" {
       "sudo apt install docker-compose -y",
       "sudo mkdir ~/wordpress/",
       "cd ~/wordpress/",
-      "sudo cp /home/ubuntu/docker-compose.yml .",
-      "sudo docker-compose up -d"
-      #"sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
-      #"sudo install minikube-linux-amd64 /usr/local/bin/minikube",
-      #"sudo apt-get install conntrack",
-      #"minikube start --driver=none"
+      #"sudo cp /home/ubuntu/docker-compose.yml .",
+      "sudo docker-compose up -d",
+      "sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
+      "sudo install minikube-linux-amd64 /usr/local/bin/minikube",
+      "sudo apt-get install conntrack",
+      "minikube start --driver=none"
     ]
   }
 
