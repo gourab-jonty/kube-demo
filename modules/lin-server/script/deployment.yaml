@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: mynginx
+          image: jonty1247/mynginx:latest
           ports:
             - containerPort: 80
               hostPort: 80

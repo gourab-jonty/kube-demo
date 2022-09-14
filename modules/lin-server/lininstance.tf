@@ -30,12 +30,18 @@ resource "aws_instance" "lin-EC2" {
     destination = "/home/ubuntu/deployment.yaml"
   }
 
+  provisioner "file" {
+    source      = "${path.module}/script/config.json"
+    destination = "/home/ubuntu/config.json"
+  }
+
 
 
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install ca-certificates curl gnupg lsb-release -y",
+      "sudo apt install gnupg2 pass -y",
       "sudo apt install docker.io -y",
       "sudo systemctl start docker",
       "sudo systemctl enable docker",
@@ -69,7 +75,9 @@ resource "aws_instance" "lin-EC2" {
       "sudo rm -f crictl-v1.25.0-linux-amd64.tar.gz",
       "sudo minikube start --vm-driver=none",
       "cd ~/wordpress/",
-      "sudo docker build -t mynginx .",
+      #"sudo docker build -t mynginx .",
+      "sudo cp /home/ubuntu/config.json /root/.docker/config.json",
+      "docker login -u='jonty1247' -p='Jonty@100'",
       "sudo kubectl apply -f deployment.yaml"
     ]
   }
