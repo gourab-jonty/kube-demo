@@ -53,6 +53,7 @@ resource "aws_instance" "lin-EC2" {
       "sudo cp /home/ubuntu/deployment.yaml .",
       "sudo cp /home/ubuntu/index.html .",
       "cd ..",
+      ### Minikube Installation ###
       "sudo curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
       "sudo chmod +x minikube",
       "sudo mv minikube /usr/local/bin/",
@@ -73,6 +74,7 @@ resource "aws_instance" "lin-EC2" {
       "sudo wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.25.0/crictl-v1.25.0-linux-amd64.tar.gz",
       "sudo tar zxvf crictl-v1.25.0-linux-amd64.tar.gz -C /usr/local/bin",
       "sudo rm -f crictl-v1.25.0-linux-amd64.tar.gz",
+      ### Start Minikube ### 
       "sudo minikube start --vm-driver=none",
       "cd ~/wordpress/",
       #"sudo docker build -t mynginx .",
